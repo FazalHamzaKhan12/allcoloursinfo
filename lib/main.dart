@@ -1,6 +1,8 @@
 import 'package:allcoloursinfo/Screens/bodycode.dart';
+import 'package:allcoloursinfo/Screens/drawer.dart';
 import 'package:allcoloursinfo/Theme/theme_data.dart';
 import 'package:allcoloursinfo/Theme/themes_manager.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -107,8 +109,10 @@ class _HomeScreenState extends State<HomeScreen> {
           "Color Info",
           style: _textTheme.headlineSmall,
         ),
+
       ),
-      body: BodyCode()
+      body: BodyCode(),
+      drawer: DrawerPage()
     );
   }
 }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 // Define primary color
-const COLOR_PRIMARY = Colors.deepPurple;
 
 // Define light theme
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
-  primaryColor: Colors.blue[600], // Vibrant and inviting
+  primaryColor: Colors.blue[700], // Vibrant and inviting
   scaffoldBackgroundColor: Colors.white, // Neutral background
   appBarTheme: AppBarTheme(
     color: Colors.blue[700], // Slightly darker shade for AppBar
@@ -26,7 +25,7 @@ ThemeData lightTheme = ThemeData(
 // Define dark theme
 ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
-  primaryColor: Colors.teal[300], // Calming and modern
+  primaryColor: Colors.teal[700], // Calming and modern
   scaffoldBackgroundColor: Colors.grey[900], // Deep gray background
   appBarTheme: AppBarTheme(
     color: Colors.teal[700], // Contrasting AppBar

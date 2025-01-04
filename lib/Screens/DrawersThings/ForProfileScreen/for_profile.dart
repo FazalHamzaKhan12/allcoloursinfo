@@ -14,16 +14,16 @@ class ForProfileScreen extends StatelessWidget {
       appBar: AppBar(),
       body: Column(
         children: [
-          Center(
+          const Center(
             child: Hero(
               tag: 'profile-picture',
               child: CircleAvatar(
                 radius: 100, // Larger radius to show animation
-                backgroundImage: AssetImage("assets/images/Myf.jpg"),
+                backgroundImage:  AssetImage("assets/images/Myf.jpg"),
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 22,
           ),
           Text(

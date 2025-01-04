@@ -2,14 +2,12 @@ import 'package:allcoloursinfo/Screens/bodycode.dart';
 import 'package:allcoloursinfo/Screens/DrawersThings/drawer.dart';
 import 'package:allcoloursinfo/Theme/theme_data.dart';
 import 'package:allcoloursinfo/Theme/themes_manager.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
 ThemeManager _themeManager = ThemeManager();
 
 // Define primary color
-const COLOR_PRIMARY = Colors.deepPurple;
 
 
 
@@ -18,7 +16,7 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -56,7 +54,7 @@ class _MyAppState extends State<MyApp> {
 class HomeScreen extends StatefulWidget {
   final ThemeManager themeManager; // Receive ThemeManager as a parameter
 
-  const HomeScreen({Key? key, required this.themeManager}) : super(key: key);
+  const HomeScreen({super.key, required this.themeManager});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -111,8 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
 
       ),
-      body: BodyCode(),
-      drawer: DrawerPage()
+      body: const BodyCode(),
+      drawer: const DrawerPage()
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:allcoloursinfo/Screens/DrawersThings/ForProfileScreen/for_profile.dart';
-import 'package:allcoloursinfo/Screens/DrawersThings/themeschanging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +12,7 @@ class DrawerPage extends StatefulWidget {
 }
 
 class _DrawerPageState extends State<DrawerPage> {
-  String userName = "Fazal Hamza Khan"; // Initial name
+  String userName = "Enter Your UserName"; // Initial name
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +26,43 @@ class _DrawerPageState extends State<DrawerPage> {
               padding: EdgeInsets.zero,
               child: UserAccountsDrawerHeader(
                 decoration:
-                BoxDecoration(color: Theme.of(context).primaryColor),
+                    BoxDecoration(color: Theme.of(context).primaryColor),
                 margin: EdgeInsets.zero,
-                accountName: Text(
-                  userName, // Display dynamic user name
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Theme.of(context).textTheme.headlineSmall?.color,
-                  ),
+                accountName: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        // Open dialog when Edit button is pressed
+                        _editUserNameDialog();
+                      },
+                      child: Text(
+                        userName, // Display dynamic user name
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color:
+                              Theme.of(context).textTheme.headlineSmall?.color,
+                          decoration: TextDecoration
+                              .none, // Add underline for clickable effect
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        // Open dialog when Edit button is pressed
+                        _editUserNameDialog();
+                      },
+                      child: SizedBox(
+                        height: 25,
+                        width: 40,
+                        child: Icon(
+                          Icons.edit,
+                          color:
+                              Theme.of(context).textTheme.headlineSmall?.color,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
                 accountEmail: Text(
                   "theunknown.pak@gmail.com",
@@ -51,11 +78,11 @@ class _DrawerPageState extends State<DrawerPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ForProfileScreen(),
+                        builder: (context) => const ForProfileScreen(),
                       ),
                     );
                   },
-                  child: Hero(
+                  child: const Hero(
                     tag: 'profile-picture',
                     child: CircleAvatar(
                       radius: 50,
@@ -66,23 +93,6 @@ class _DrawerPageState extends State<DrawerPage> {
               ),
             ),
             ListTile(
-              leading: Icon(
-                Icons.edit,
-                color: Theme.of(context).textTheme.headlineSmall?.color,
-              ),
-              title: Text(
-                "Edit Name",
-                textScaleFactor: 1.2,
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.headlineSmall?.color,
-                ),
-              ),
-              onTap: () {
-                // Open dialog to edit name
-                _editUserNameDialog();
-              },
-            ),
-            ListTile(
               onTap: () {
                 // Check if current route is not the same as Home screen
                 if (ModalRoute.of(context)?.settings.name != '/') {
@@ -91,7 +101,8 @@ class _DrawerPageState extends State<DrawerPage> {
                     MaterialPageRoute(builder: (context) => const MyApp()),
                   );
                 } else {
-                  Navigator.pop(context); // Just close the drawer if already on Home
+                  Navigator.pop(
+                      context); // Just close the drawer if already on Home
                 }
               },
               leading: Icon(
@@ -135,7 +146,8 @@ class _DrawerPageState extends State<DrawerPage> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30), // Smooth rounded corners
           ),
-          backgroundColor: Colors.white.withOpacity(0.95), // Semi-transparent background
+          backgroundColor:
+              Colors.white.withOpacity(0.95), // Semi-transparent background
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -232,7 +244,13 @@ class _DrawerPageState extends State<DrawerPage> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      child:  Text("Save",style: TextStyle(color: Theme.of(context).textTheme.headlineMedium?.color),),
+                      child: Text(
+                        "Save",
+                        style: TextStyle(
+                          color:
+                              Theme.of(context).textTheme.headlineMedium?.color,
+                        ),
+                      ),
                     ),
                   ],
                 ),

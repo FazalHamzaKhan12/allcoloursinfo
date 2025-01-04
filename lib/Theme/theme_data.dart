@@ -9,7 +9,7 @@ ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: Colors.white, // Neutral background
   appBarTheme: AppBarTheme(
     color: Colors.blue[700], // Slightly darker shade for AppBar
-    iconTheme: IconThemeData(color: Colors.white), // White icons on AppBar
+    iconTheme: const IconThemeData(color: Colors.white), // White icons on AppBar
   ),
   textTheme: const TextTheme(
     headlineSmall: TextStyle(color: Colors.black, fontSize: 18),
@@ -29,9 +29,9 @@ ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: Colors.grey[900], // Deep gray background
   appBarTheme: AppBarTheme(
     color: Colors.teal[700], // Contrasting AppBar
-    iconTheme: IconThemeData(color: Colors.white), // White icons
+    iconTheme: const IconThemeData(color: Colors.white), // White icons
   ),
-  textTheme: TextTheme(
+  textTheme: const TextTheme(
     headlineSmall: TextStyle(color: Colors.white, fontSize: 18),
     headlineMedium: TextStyle(color: Colors.white70, fontSize: 25),
     headlineLarge: TextStyle(color: Colors.white70, fontSize: 40),

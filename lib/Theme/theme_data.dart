@@ -31,10 +31,10 @@ ThemeData darkTheme = ThemeData(
     color: Colors.teal[700], // Contrasting AppBar
     iconTheme: IconThemeData(color: Colors.white), // White icons
   ),
-  textTheme: const TextTheme(
+  textTheme: TextTheme(
     headlineSmall: TextStyle(color: Colors.white, fontSize: 18),
-    headlineMedium: TextStyle(color: Colors.white70, fontSize: 20),
-    headlineLarge: TextStyle(color: Colors.white70, fontSize: 24),
+    headlineMedium: TextStyle(color: Colors.white70, fontSize: 25),
+    headlineLarge: TextStyle(color: Colors.white70, fontSize: 40),
   ),
   buttonTheme: ButtonThemeData(
     buttonColor: Colors.teal[300], // Match accent color

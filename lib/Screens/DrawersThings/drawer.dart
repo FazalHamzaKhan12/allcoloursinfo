@@ -1,18 +1,31 @@
 import 'package:allcoloursinfo/Screens/DrawersThings/ForProfileScreen/for_profile.dart';
+import 'package:allcoloursinfo/home_screen.dart';
+import 'package:allcoloursinfo/settings_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
+import '../../Theme/themes_manager.dart';
 
 class DrawerPage extends StatefulWidget {
-  const DrawerPage({super.key});
+  const DrawerPage({super.key, this.themeManager});
+  final ThemeManager? themeManager;
 
   @override
   State<DrawerPage> createState() => _DrawerPageState();
 }
 
 class _DrawerPageState extends State<DrawerPage> {
+  late final ThemeManager _effectiveThemeManager;
+
+  @override
+  void initState() {
+    super.initState();
+    // Use the provided themeManager or create a default one
+    _effectiveThemeManager = widget.themeManager ?? ThemeManager();
+  }
+
   String userName = "Enter Your UserName"; // Initial name
+  String userEmail = "Enter Your Email"; // Initial email
 
   @override
   Widget build(BuildContext context) {
@@ -25,52 +38,50 @@ class _DrawerPageState extends State<DrawerPage> {
             DrawerHeader(
               padding: EdgeInsets.zero,
               child: UserAccountsDrawerHeader(
-                decoration:
-                    BoxDecoration(color: Theme.of(context).primaryColor),
+                decoration: BoxDecoration(color: Theme.of(context).primaryColor),
                 margin: EdgeInsets.zero,
                 accountName: Row(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        // Open dialog when Edit button is pressed
-                        _editUserNameDialog();
-                      },
-                      child: Text(
+                    Text(
                         userName, // Display dynamic user name
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
-                          color:
-                              Theme.of(context).textTheme.headlineSmall?.color,
-                          decoration: TextDecoration
-                              .none, // Add underline for clickable effect
+                          color: Theme.of(context).textTheme.headlineSmall?.color,
+                          decoration: TextDecoration.none,
                         ),
+                      ),
+                    SizedBox(width: 5,),
+                    GestureDetector(
+                      onTap: _editUserNameDialog,
+                      child: Icon(
+                        Icons.edit,
+                        size: 20,
+                        color: Theme.of(context).textTheme.headlineSmall?.color,
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        // Open dialog when Edit button is pressed
-                        _editUserNameDialog();
-                      },
-                      child: SizedBox(
-                        height: 25,
-                        width: 40,
-                        child: Icon(
-                          Icons.edit,
-                          color:
-                              Theme.of(context).textTheme.headlineSmall?.color,
-                        ),
-                      ),
-                    )
                   ],
                 ),
-                accountEmail: Text(
-                  "theunknown.pak@gmail.com",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                    color: Theme.of(context).textTheme.headlineSmall?.color,
-                  ),
+                accountEmail: Row(
+                  children: [
+                    Text(
+                        userEmail,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          color: Theme.of(context).textTheme.headlineSmall?.color,
+                        ),
+                      ),
+                    SizedBox(width: 5,),
+                    GestureDetector(
+                      onTap: _editEmailDialog,
+                      child: Icon(
+                        Icons.edit,
+                        size: 15,
+                        color: Theme.of(context).textTheme.headlineSmall?.color,
+                      ),
+                    ),
+                  ],
                 ),
                 currentAccountPicture: GestureDetector(
                   onTap: () {
@@ -98,11 +109,13 @@ class _DrawerPageState extends State<DrawerPage> {
                 if (ModalRoute.of(context)?.settings.name != '/') {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const MyApp()),
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          HomeScreen(themeManager: _effectiveThemeManager),
+                    ),
                   );
                 } else {
-                  Navigator.pop(
-                      context); // Just close the drawer if already on Home
+                  Navigator.pop(context); // Just close the drawer if already on Home
                 }
               },
               leading: Icon(
@@ -118,12 +131,22 @@ class _DrawerPageState extends State<DrawerPage> {
               ),
             ),
             ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingsScreen(
+                      themeManager: _effectiveThemeManager,
+                    ),
+                  ),
+                );
+              },
               leading: Icon(
-                CupertinoIcons.color_filter,
+                Icons.settings,
                 color: Theme.of(context).textTheme.headlineSmall?.color,
               ),
               title: Text(
-                "Themes Changing",
+                "Settings",
                 textScaleFactor: 1.2,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.headlineSmall?.color,
@@ -136,6 +159,7 @@ class _DrawerPageState extends State<DrawerPage> {
     );
   }
 
+  // Dialog for editing user name
   void _editUserNameDialog() {
     TextEditingController nameController = TextEditingController();
 
@@ -144,23 +168,21 @@ class _DrawerPageState extends State<DrawerPage> {
       builder: (BuildContext context) {
         return Dialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30), // Smooth rounded corners
+            borderRadius: BorderRadius.circular(30),
           ),
-          backgroundColor:
-              Colors.white.withOpacity(0.95), // Semi-transparent background
+          backgroundColor: Colors.white.withOpacity(0.95),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
-              mainAxisSize: MainAxisSize.min, // Adjust size based on content
+              mainAxisSize: MainAxisSize.min,
               children: [
-                // Title
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
                       Icons.edit,
                       color: Theme.of(context).primaryColor,
-                      size: 30,
+                      size: 28,
                     ),
                     const SizedBox(width: 10),
                     Text(
@@ -174,14 +196,12 @@ class _DrawerPageState extends State<DrawerPage> {
                   ],
                 ),
                 const SizedBox(height: 20),
-
-                // Input Field
                 TextField(
                   controller: nameController,
                   style: const TextStyle(fontSize: 16),
                   decoration: InputDecoration(
                     hintText: "Enter your new name",
-                    hintStyle: const TextStyle(color: Colors.grey),
+                    hintStyle: const TextStyle(color: Colors.black54),
                     filled: true,
                     fillColor: Colors.grey[100],
                     border: OutlineInputBorder(
@@ -190,67 +210,112 @@ class _DrawerPageState extends State<DrawerPage> {
                         color: Theme.of(context).primaryColor,
                       ),
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Cancel"),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          if (nameController.text.isNotEmpty) {
+                            userName = nameController.text;
+                          }
+                        });
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Save"),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // Dialog for editing email
+  void _editEmailDialog() {
+    TextEditingController emailController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          backgroundColor: Colors.white.withOpacity(0.95),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.email,
+                      color: Theme.of(context).primaryColor,
+                      size: 28,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      "Edit Email",
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
                         color: Theme.of(context).primaryColor,
                       ),
                     ),
-                    focusedBorder: OutlineInputBorder(
+                  ],
+                ),
+                const SizedBox(height: 20),
+                TextField(
+                  controller: emailController,
+                  style: const TextStyle(fontSize: 16),
+                  decoration: InputDecoration(
+                    hintText: "Enter your new email",
+                    hintStyle: const TextStyle(color: Colors.black54),
+                    filled: true,
+                    fillColor: Colors.grey[100],
+                    border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide: BorderSide(
                         color: Theme.of(context).primaryColor,
-                        width: 2,
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                // Buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // Cancel Button
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pop(); // Close dialog
+                        Navigator.of(context).pop();
                       },
-                      style: TextButton.styleFrom(
-                        foregroundColor: Colors.grey[700],
-                        textStyle: const TextStyle(fontSize: 16),
-                      ),
                       child: const Text("Cancel"),
                     ),
-                    // Save Button
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          if (nameController.text.isNotEmpty) {
-                            userName = nameController.text; // Update name
+                          if (emailController.text.isNotEmpty) {
+                            userEmail = emailController.text;
                           }
                         });
-                        Navigator.of(context).pop(); // Close dialog
+                        Navigator.of(context).pop();
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 25, vertical: 10),
-                        textStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      child: Text(
-                        "Save",
-                        style: TextStyle(
-                          color:
-                              Theme.of(context).textTheme.headlineMedium?.color,
-                        ),
-                      ),
+                      child: const Text("Save"),
                     ),
                   ],
                 ),

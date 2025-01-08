@@ -20,10 +20,13 @@ class ColorDetailScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 200,
-              height: 200,
-              color: colorValue,
+            Hero(
+              tag: colorName, // Use the same tag as in the list
+              child: Container(
+                width: 200,
+                height: 200,
+                color: colorValue,
+              ),
             ),
             const SizedBox(height: 20),
             Text(

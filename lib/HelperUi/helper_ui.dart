@@ -74,10 +74,13 @@ class ColorSwatchDisplay extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
-              leading: Container(
-                width: 100,
-                height: 50,
-                color: colorValue,
+              leading: Hero(
+                tag: colorName, // Use unique tag for each color
+                child: Container(
+                  width: 100,
+                  height: 50,
+                  color: colorValue,
+                ),
               ),
               title: Text(colorName),
               onTap: () {
